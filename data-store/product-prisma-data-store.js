@@ -30,3 +30,21 @@ export async function deleteProduct(productId) {
     console.log(err,"deleting process failed!!")
   }
 }
+export async function updateProduct(updateData, productId) {
+  try {
+    const updatedProduct = await prisma.product.update({
+      where: { productId: productId },
+      data: {
+        productName: updateData.productName,
+        description: updateData.description,
+        quantity: updateData.quantity,
+        unitPrice: updateData.unitPrice,
+      },
+    });
+    console.log("Product updated successfully");
+    return updatedProduct;
+  } catch (err) {
+    console.error("Failed updating data", err);
+    throw err;
+  }
+}

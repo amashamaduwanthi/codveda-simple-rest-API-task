@@ -1,5 +1,5 @@
 import express from 'express';
-import { AddNewProduct ,deleteProduct,getAllProduct} from '../data-store/product-prisma-data-store.js';
+import { AddNewProduct ,deleteProduct,getAllProduct, updateProduct} from '../data-store/product-prisma-data-store.js';
 
 const router = express.Router();
 
@@ -23,6 +23,21 @@ router.delete('/delete/:id',async(req,res)=>{
   }catch(err){
     console.log(err)
     res.status(400)
+  }
+})
+
+router.put('/update/:id',async(req,res)=>{
+  const update_product=req.body;
+  const productId=+req.params.id;
+  try{
+  const updatingProduct=await updateProduct(update_product,productId)
+  res.json(updatingProduct)
+  if (!updatingProduct) {
+    return res.status(404).json({ error: "Product not found" });
+  }
+  }catch(err){
+    console.error("Update failed:", err);
+    res.status(500).json({ error: "Internal server error" });
   }
 })
 export default router;
