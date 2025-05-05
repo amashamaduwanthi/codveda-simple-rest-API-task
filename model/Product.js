@@ -5,4 +5,6 @@ export default class Product{
   description 
   quantity    
   unitPrice   
+  userId
+  
 }
