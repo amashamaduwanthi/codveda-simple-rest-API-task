@@ -14,3 +14,6 @@ export async function AddNewProduct(new_product) {
   console.log("Product added successfully:", newProduct);
   return newProduct;
 }
+export async function getAllProduct() {
+  return await prisma.product.findMany();
+}
