@@ -1,3 +1,4 @@
+
 export default class Product{
   productId
   productName 
