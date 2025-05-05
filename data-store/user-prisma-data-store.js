@@ -17,3 +17,15 @@ export async function AddNewUser(new_user) {
 export async function getAllUser() {
   return await prisma.user.findMany();
 }
+
+export async function deleteUser(userId) {
+  try{
+    const deletingUser=await prisma.user.delete({
+      where:{userId:userId} 
+    })
+    console.log("Deleting Process Successfully")
+    return deletingUser;
+  }catch(err){
+    console.log(err,"deleting process failed!!")
+  }
+}
