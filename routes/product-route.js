@@ -1,5 +1,5 @@
 import express from 'express';
-import { AddNewProduct ,getAllProduct} from '../data-store/product-prisma-data-store.js';
+import { AddNewProduct ,deleteProduct,getAllProduct} from '../data-store/product-prisma-data-store.js';
 
 const router = express.Router();
 
@@ -14,5 +14,15 @@ router.get('/view', async (req, res) => {
   res.json(products);
 });
 
-
+router.delete('/delete/:id',async(req,res)=>{
+  const productId = +req.params.id; 
+  console.log(productId);
+  try{
+  const deletingProduct=await deleteProduct(productId);
+  res.json(deletingProduct)
+  }catch(err){
+    console.log(err)
+    res.status(400)
+  }
+})
 export default router;

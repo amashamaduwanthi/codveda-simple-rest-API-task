@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client';
+import e from 'express';
 
 const prisma = new PrismaClient();
 
@@ -16,4 +17,16 @@ export async function AddNewProduct(new_product) {
 }
 export async function getAllProduct() {
   return await prisma.product.findMany();
+}
+
+export async function deleteProduct(productId) {
+  try{
+    const deletingProduct=await prisma.product.delete({
+      where:{productId:productId} 
+    })
+    console.log("Deleting Process Successfully")
+    return deletingProduct;
+  }catch(err){
+    console.log(err,"deleting process failed!!")
+  }
 }
