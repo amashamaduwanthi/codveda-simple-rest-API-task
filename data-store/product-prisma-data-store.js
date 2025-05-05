@@ -10,6 +10,7 @@ export async function AddNewProduct(new_product) {
       description: new_product.description,
       quantity: new_product.quantity,
       unitPrice: new_product.unitPrice,
+      userId:new_product.userId
     },
   });
   console.log("Product added successfully:", newProduct);
@@ -39,6 +40,7 @@ export async function updateProduct(updateData, productId) {
         description: updateData.description,
         quantity: updateData.quantity,
         unitPrice: updateData.unitPrice,
+        userId:updateData.userId
       },
     });
     console.log("Product updated successfully");
