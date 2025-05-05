@@ -13,3 +13,7 @@ export async function AddNewUser(new_user) {
   console.log("User added successfully:", newUser);
   return newUser;
 }
+
+export async function getAllUser() {
+  return await prisma.user.findMany();
+}
