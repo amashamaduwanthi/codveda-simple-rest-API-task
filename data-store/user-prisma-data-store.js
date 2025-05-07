@@ -29,3 +29,20 @@ export async function deleteUser(userId) {
     console.log(err,"deleting process failed!!")
   }
 }
+export async function updateUser(updateData, userId) {
+  try {
+    const updatedUser = await prisma.user.update({
+      where: { userId:userId },
+      data: {
+       username:updateData.username,
+       email:updateData.email,
+       password:updateData.password
+      },
+    });
+    console.log("User updated successfully");
+    return updatedUser;
+  } catch (err) {
+    console.error("Failed updating data", err);
+    throw err;
+  }
+}

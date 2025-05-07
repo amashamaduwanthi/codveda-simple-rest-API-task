@@ -1,5 +1,5 @@
 import express from 'express';
-import { AddNewUser, deleteUser, getAllUser } from '../data-store/user-prisma-data-store.js';
+import { AddNewUser, deleteUser, getAllUser, updateUser } from '../data-store/user-prisma-data-store.js';
 
 const router = express.Router();
 
@@ -21,6 +21,20 @@ router.delete('/delete/:id',async(req,res)=>{
   }catch(err){
     console.log(err)
     res.status(400)
+  }
+})
+router.put('/update/:id',async(req,res)=>{
+  const update_user=req.body;
+  const userId=+req.params.id;
+  try{
+  const updatingUser=await updateUser(update_user,userId)
+  res.json(updatingUser)
+  if (!updatingUser) {
+    return res.status(404).json({ error: "User not found" });
+  }
+  }catch(err){
+    console.error("Update failed:", err);
+    res.status(500).json({ error: "Internal server error" });
   }
 })
 export default router;
